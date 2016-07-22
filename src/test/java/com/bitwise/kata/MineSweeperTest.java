@@ -11,7 +11,7 @@ public class MineSweeperTest {
         //given
         MineSweeper mineSweeper = new MineSweeper();
         //when
-        mineSweeper.getField(" 5  5 ");
+        mineSweeper.addField(" 5  5 ");
         //then
 
            }
@@ -21,7 +21,7 @@ public class MineSweeperTest {
         //given
         MineSweeper mineSweeper = new MineSweeper();
         //when
-        mineSweeper.getField("a 5");
+        mineSweeper.addField("a 5");
         //then
 
     }
@@ -31,7 +31,7 @@ public class MineSweeperTest {
         //given
         MineSweeper mineSweeper = new MineSweeper();
         //when
-        mineSweeper.getField(" 5 5 5 ");
+        mineSweeper.addField(" 5 5 5 ");
         //then
 
 
@@ -42,11 +42,12 @@ public class MineSweeperTest {
         //given
         MineSweeper mineSweeper = new MineSweeper();
         //when
-        mineSweeper.getField("5  5");
+        mineSweeper.addField("5  5");
         //then
         Assert.assertFalse(mineSweeper.isMineFieldEmpty());
     }
 
+    
 
 
 }
