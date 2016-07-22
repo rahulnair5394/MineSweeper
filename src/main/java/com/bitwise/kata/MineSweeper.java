@@ -1,6 +1,7 @@
 package com.bitwise.kata;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by rahuln on 7/21/2016.
@@ -8,12 +9,13 @@ import java.util.ArrayList;
 public class MineSweeper {
 
 
-    ArrayList<Field> mineFields = new ArrayList<Field>();
-    ArrayList<Field> hintFields = new ArrayList<Field>();
+    private List<Field> mineFields = new ArrayList<>();
+    private List<Field> hintFields = new ArrayList<>();
 
-    public void getField(String initiator) {
+    public void addField(String initiator) {
         validate(initiator);
-
+        String []rowCol=initiator.trim().split("[\\s]+");
+        mineFields.add(new MineField(rowCol[0],rowCol[1]));
     }
 
     private void validate(String initiator) {
@@ -22,7 +24,7 @@ public class MineSweeper {
     }
 
     private void validatePattern(String initiator) {
-        if (!initiator.matches("[ ]+[0-9]+[ ]+[0-9]+[ ]+"))
+        if (!initiator.matches("[ ]*[0-9]+[ ]+[0-9]+[ ]*"))
             throw new InputFormatViolationException();
 
     }
@@ -30,10 +32,23 @@ public class MineSweeper {
     public boolean isMineFieldEmpty() {
         return mineFields.isEmpty();
     }
+
+    public boolean hasField(int i){
+                if(mineFields.get(i)==null)
+                    return true;
+                else return false;
+    }
     public boolean isHintFieldEmpty() {
         return hintFields.isEmpty();
     }
 
+    public Field getField(int i) {
+        return mineFields.get(i);
+    }
+
     public class InputFormatViolationException extends RuntimeException {
+    }
+
+    public class FieldNotFoundException extends RuntimeException {
     }
 }
