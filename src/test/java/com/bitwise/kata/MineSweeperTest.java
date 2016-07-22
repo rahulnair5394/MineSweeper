@@ -2,24 +2,37 @@ package com.bitwise.kata;
 
 import org.junit.Test;
 
-/**
- * Created by rahuln on 7/21/2016.
- */
+
 public class MineSweeperTest {
-    MineSweeper mineSweeper = new MineSweeper();
+
     @Test
     public void itShouldAcceptUserInput_numeric(){
+        //given
+        MineSweeper mineSweeper = new MineSweeper();
+        //when
         mineSweeper.getField(" 5  5 ");
-    }
+        //then
+
+           }
 
     @Test(expected = MineSweeper.InputFormatViolationException.class)
     public void itShouldNotAcceptUserInput_AlphaNumeric(){
+        //given
+        MineSweeper mineSweeper = new MineSweeper();
+        //when
         mineSweeper.getField("a 5");
+        //then
+
     }
 
     @Test(expected = MineSweeper.InputFormatViolationException.class)
     public void itShouldNotAcceptMoreThanTwoParameters(){
-        mineSweeper.getField("5  5  5");
+        //given
+        MineSweeper mineSweeper = new MineSweeper();
+        //when
+        mineSweeper.getField(" 5 5 5 ");
+        //then
+
     }
 
 
