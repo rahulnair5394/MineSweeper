@@ -1,5 +1,6 @@
 package com.bitwise.kata;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 
@@ -33,8 +34,18 @@ public class MineSweeperTest {
         mineSweeper.getField(" 5 5 5 ");
         //then
 
+
     }
 
+    @Test
+    public void itShouldCreateAField(){
+        //given
+        MineSweeper mineSweeper = new MineSweeper();
+        //when
+        mineSweeper.getField("5  5");
+        //then
+        Assert.assertFalse(mineSweeper.isMineFieldEmpty());
+    }
 
 
 
