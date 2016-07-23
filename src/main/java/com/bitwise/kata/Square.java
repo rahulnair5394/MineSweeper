@@ -3,10 +3,10 @@ package com.bitwise.kata;
 /**
  * Created by rahuln on 7/22/2016.
  */
-public class MineSquare {
+public class Square {
     char squareType;
 
-    public MineSquare(char inputSquareType) {
+    public Square(char inputSquareType) {
     this.squareType=inputSquareType;
 
     }
@@ -15,6 +15,8 @@ public class MineSquare {
         return squareType;
     }
 
-
-
+    @Override
+    public String toString() {
+        return String.valueOf(squareType);
+    }
 }

@@ -1,6 +1,5 @@
 package com.bitwise.kata;
 
-import java.util.Scanner;
 
 /**
  * Created by rahuln on 7/22/2016.
@@ -9,49 +8,52 @@ public class MineField implements Field {
 
     private final int noOfRows;
     private final int noOfColumns;
-    private final MineSquare[][] squares;
-    Scanner scan = new Scanner(System.in);
+    private final Square[][] squares;
 
-    public MineField(String noOfRows, String noOfColumns) {//
-        this.noOfRows = Integer.parseInt(noOfRows);
-        this.noOfColumns = Integer.parseInt(noOfColumns);
-        squares = new MineSquare[this.noOfRows][this.noOfColumns];
+
+    public MineField(int noOfRows, int noOfColumns) {
+        this.noOfRows = noOfRows;
+        this.noOfColumns = noOfColumns;
+        squares = new Square[this.noOfRows][this.noOfColumns];
 
     }
 
+    public int getNoOfRows() {
+        return noOfRows;
+    }
+
+    public int getNoOfColumns() {
+        return noOfColumns;
+    }
 
     @Override
-    public void setSquares(String fieldSquaresInputString, int atIndex) {
-
+    public void setSquares(String[] fieldSquaresInputString) {
         validateColumnInputSquares(fieldSquaresInputString);
-        fieldSquaresInputString.replaceAll("\\s+", "");
-        char[] currentRow = fieldSquaresInputString.toCharArray();
-
-        for (int i = 0; i < noOfColumns; i++) {
-            squares[atIndex][i] = new MineSquare(currentRow[i]);
+        for (int i = 0; i < noOfRows; i++) {
+            fieldSquaresInputString[i] = fieldSquaresInputString[i].replaceAll("\\s+", "");
+            char[] currentRow = fieldSquaresInputString[i].toCharArray();
+            for (int j = 0; j < noOfColumns; j++) squares[i][j] = new Square(currentRow[j]);
         }
-
     }
 
     @Override
-    public void getSquares(int atIndex) {
-        for (int i = 0; i < noOfColumns; i++) {
-            System.out.print(squares[atIndex][i].getType());
-        }
-        System.out.println();
-
+    public Square[][] getSquares() {
+       return squares;
     }
 
 
-    private void validateColumnInputSquares(String fieldSquaresInputString) {
+    private void validateColumnInputSquares(String[] fieldSquaresInputString) {
 
         for (int i = 0; i < noOfColumns; i++) {
-            if (fieldSquaresInputString.length() > noOfColumns)
-                System.out.println("Column size exceeded for row ");
-            if (!fieldSquaresInputString.matches("[*.\\s]+"))
-                System.out.println("Row contains unexpected format ");
+
+            if (fieldSquaresInputString.length != noOfRows ||
+                    fieldSquaresInputString[i].length() != noOfColumns ||
+                    !fieldSquaresInputString[i].matches("[*.\\s]+"))
+                throw new InputValidationFailedException();
         }
     }
 
 
+    public class InputValidationFailedException extends RuntimeException {
+    }
 }

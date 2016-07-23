@@ -5,7 +5,9 @@ package com.bitwise.kata;
  */
 interface Field {
 
-    void setSquares(String fieldSquaresInputString,int atIndex);
-    void getSquares(int atIndex);
+    void setSquares(String[] fieldSquaresInputStrings);
+    Square[][] getSquares();
+    int getNoOfRows();
+    int getNoOfColumns();
 
 }

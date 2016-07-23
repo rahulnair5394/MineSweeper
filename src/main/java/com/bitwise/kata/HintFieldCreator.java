@@ -1,7 +1,5 @@
 package com.bitwise.kata;
 
-import java.util.Scanner;
-
 /**
  * Created by Rahul Nair on 7/23/2016.
  */

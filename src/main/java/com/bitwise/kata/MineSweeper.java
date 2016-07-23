@@ -11,17 +11,18 @@ public class MineSweeper {
 
     private List<Field> mineFields = new ArrayList<>();
     private List<Field> hintFields = new ArrayList<>();
+    HintFieldCreator fieldCreator = new HintFieldCreator();
 
-    public void addField(String initiator) {
-        validate(initiator);
-        String []rowCol=initiator.trim().split("[\\s]+");
-        mineFields.add(new MineField(rowCol[0],rowCol[1]));
-    }
-
-    private void validate(String initiator) {
+    public void addMineField(String initiator) {
         validatePattern(initiator);
-
+        String[] rowCol = initiator.trim().split("[\\s]+");
+        mineFields.add(new MineField(Integer.parseInt(rowCol[0]), Integer.parseInt(rowCol[1])));
     }
+
+    public Field getMineField(int i) {
+        return mineFields.get(i);
+    }
+
 
     private void validatePattern(String initiator) {
         if (!initiator.matches("[ ]*[0-9]+[ ]+[0-9]+[ ]*"))
@@ -33,22 +34,24 @@ public class MineSweeper {
         return mineFields.isEmpty();
     }
 
-    public boolean hasField(int i){
-                if(mineFields.get(i)==null)
-                    return true;
-                else return false;
+    public boolean hasMineField(int i) {
+        if (mineFields.get(i) == null)
+            return false;
+        else return true;
     }
+
     public boolean isHintFieldEmpty() {
         return hintFields.isEmpty();
     }
 
-    public Field getField(int i) {
-        return mineFields.get(i);
+    public boolean hasHintField(int i) {
+        if (hintFields.get(i) == null)
+            return true;
+        else return false;
     }
 
     public class InputFormatViolationException extends RuntimeException {
     }
 
-    public class FieldNotFoundException extends RuntimeException {
-    }
+
 }
