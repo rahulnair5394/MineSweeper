@@ -1,7 +1,7 @@
 package com.bitwise.kata;
 
 /**
- * Created by Rahul Nair on 7/23/2016.
+ * Created by rahul.nair@bitwiseglobal.com .
  */
 public class HintField implements Field{
 

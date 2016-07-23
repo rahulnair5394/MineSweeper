@@ -1,10 +1,10 @@
 package com.bitwise.kata;
 
 /**
- * Created by rahuln on 7/22/2016.
+ * Created by rahul.nair@bitwiseglobal.com .
  */
 public class Square {
-    char squareType;
+    private final char squareType;
 
     public Square(char inputSquareType) {
     this.squareType=inputSquareType;

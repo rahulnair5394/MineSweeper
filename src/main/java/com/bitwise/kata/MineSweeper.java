@@ -4,13 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by rahuln on 7/21/2016.
+ * Created by rahul.nair@bitwiseglobal.com .
  */
-public class MineSweeper {
+class MineSweeper {
 
 
-    private List<Field> mineFields = new ArrayList<>();
-    private List<Field> hintFields = new ArrayList<>();
+    private final List<Field> mineFields = new ArrayList<>();
+    private final List<Field> hintFields = new ArrayList<>();
     HintFieldCreator fieldCreator = new HintFieldCreator();
 
     public void addMineField(String initiator) {
@@ -35,9 +35,7 @@ public class MineSweeper {
     }
 
     public boolean hasMineField(int i) {
-        if (mineFields.get(i) == null)
-            return false;
-        else return true;
+        return mineFields.get(i) != null;
     }
 
     public boolean isHintFieldEmpty() {
@@ -45,9 +43,7 @@ public class MineSweeper {
     }
 
     public boolean hasHintField(int i) {
-        if (hintFields.get(i) == null)
-            return true;
-        else return false;
+        return hintFields.get(i) == null;
     }
 
     public class InputFormatViolationException extends RuntimeException {

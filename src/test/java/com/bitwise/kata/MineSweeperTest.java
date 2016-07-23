@@ -116,8 +116,7 @@ public class MineSweeperTest {
             field.setSquares(squareInput);
             Square[][] squares = field.getSquares();
             for (Square[] square : squares) {
-                for (int j = 0; j < square.length; j++)
-                    System.out.print(square[j]);
+                for (Square aSquare : square) System.out.print(aSquare);
                 System.out.println();
             }
         }
