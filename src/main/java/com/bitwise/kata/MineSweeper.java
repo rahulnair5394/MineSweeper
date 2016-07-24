@@ -19,8 +19,20 @@ class MineSweeper {
         mineFields.add(new MineField(Integer.parseInt(rowCol[0]), Integer.parseInt(rowCol[1])));
     }
 
+
     public Field getMineField(int i) {
         return mineFields.get(i);
+    }
+
+    public void addHintField(Field mineField) {
+        if (mineField != null) {
+            Field hintField = fieldCreator.makeHintField(mineField);
+            hintFields.add(hintField);
+        }
+    }
+
+    public Field getHintField(int i) {
+        return hintFields.get(i);
     }
 
 
@@ -43,7 +55,7 @@ class MineSweeper {
     }
 
     public boolean hasHintField(int i) {
-        return hintFields.get(i) == null;
+        return hintFields.get(i) != null;
     }
 
     public class InputFormatViolationException extends RuntimeException {

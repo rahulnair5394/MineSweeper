@@ -3,35 +3,26 @@ package com.bitwise.kata;
 /**
  * Created by rahul.nair@bitwiseglobal.com .
  */
-public class HintField implements Field{
+public class HintField extends Field {
 
-    private final int noOfRows;
-    private final int noOfColumns;
-    private final Square[][] squares;
 
-    public HintField(int noOfRows, int noOfColumns) {//
-        this.noOfRows = noOfRows;
-        this.noOfColumns = noOfColumns;
-        squares = new Square[this.noOfRows][this.noOfColumns];
+
+    public HintField(int noOfRows, int noOfColumns) {
+        super(noOfRows,noOfColumns);//
     }
 
     @Override
-    public void setSquares(String[] fieldSquaresInputStrings) {
+    void validateColumnInputSquares(String[] fieldSquaresInputString) {
 
+        for (int i = 0; i < fieldSquaresInputString.length; i++) {
+
+            if (fieldSquaresInputString.length != this.getNoOfRows() ||
+                    fieldSquaresInputString[i].length() != this.getNoOfColumns() ||
+                    !fieldSquaresInputString[i].matches("[0-9*\\s]+"))
+                throw new InputValidationFailedException();
+        }
     }
 
-    @Override
-    public Square[][] getSquares() {
-        return new Square[0][];
-    }
-
-    @Override
-    public int getNoOfRows() {
-        return this.noOfRows;
-    }
-
-    @Override
-    public int getNoOfColumns() {
-        return this.noOfColumns;
+    private class InputValidationFailedException extends RuntimeException {
     }
 }
