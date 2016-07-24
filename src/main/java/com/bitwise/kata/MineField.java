@@ -4,12 +4,12 @@ package com.bitwise.kata;
 /**
  * Created by rahul.nair@bitwiseglobal.com .
  */
-public class MineField extends Field {
+class MineField extends Field {
 
 
 
 
-    public MineField(int noOfRows, int noOfColumns) {
+    MineField(int noOfRows, int noOfColumns) {
         super(noOfRows,noOfColumns);
     }
 
@@ -26,6 +26,6 @@ public class MineField extends Field {
     }
 
 
-    public class InputValidationFailedException extends RuntimeException {
+    class InputValidationFailedException extends RuntimeException {
     }
 }

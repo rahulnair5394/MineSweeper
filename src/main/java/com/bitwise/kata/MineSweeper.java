@@ -11,27 +11,33 @@ class MineSweeper {
 
     private final List<Field> mineFields = new ArrayList<>();
     private final List<Field> hintFields = new ArrayList<>();
-    HintFieldCreator fieldCreator = new HintFieldCreator();
+    private final HintFieldCreator fieldCreator = new HintFieldCreator();
 
-    public void addMineField(String initiator) {
+    void addMineField(String initiator) {
         validatePattern(initiator);
         String[] rowCol = initiator.trim().split("[\\s]+");
+        checkRowCol(rowCol);
         mineFields.add(new MineField(Integer.parseInt(rowCol[0]), Integer.parseInt(rowCol[1])));
     }
 
+    private void checkRowCol(String[] rowCol) {
+        if(Integer.parseInt(rowCol[0])>99||Integer.parseInt(rowCol[1])>99)
+            throw new FieldLimitException();
+    }
 
-    public Field getMineField(int i) {
+
+    Field getMineField(int i) {
         return mineFields.get(i);
     }
 
-    public void addHintField(Field mineField) {
+    void addHintField(Field mineField) {
         if (mineField != null) {
             Field hintField = fieldCreator.makeHintField(mineField);
             hintFields.add(hintField);
         }
     }
 
-    public Field getHintField(int i) {
+    Field getHintField(int i) {
         return hintFields.get(i);
     }
 
@@ -42,24 +48,26 @@ class MineSweeper {
 
     }
 
-    public boolean isMineFieldEmpty() {
+    boolean isMineFieldEmpty() {
         return mineFields.isEmpty();
     }
 
-    public boolean hasMineField(int i) {
+    boolean hasMineField(int i) {
         return mineFields.get(i) != null;
     }
 
-    public boolean isHintFieldEmpty() {
+    boolean isHintFieldEmpty() {
         return hintFields.isEmpty();
     }
 
-    public boolean hasHintField(int i) {
+    boolean hasHintField(int i) {
         return hintFields.get(i) != null;
     }
 
-    public class InputFormatViolationException extends RuntimeException {
+    class InputFormatViolationException extends RuntimeException {
     }
 
 
+    class FieldLimitException extends RuntimeException {
+    }
 }

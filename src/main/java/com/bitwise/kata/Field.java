@@ -1,17 +1,15 @@
 package com.bitwise.kata;
 
-import java.util.Arrays;
-
 /**
  * Created by rahul.nair@bitwiseglobal.com .
  */
 abstract class Field {
 
-    private int noOfRows;
-    private int noOfColumns;
-    private Square[][] squares;
+    private final int noOfRows;
+    private final int noOfColumns;
+    private final Square[][] squares;
 
-    protected Field(int noOfRows, int noOfColumns) {
+    Field(int noOfRows, int noOfColumns) {
         this.noOfRows = noOfRows;
         this.noOfColumns = noOfColumns;
         squares = new Square[this.noOfRows][this.noOfColumns];
@@ -25,6 +23,13 @@ abstract class Field {
             fieldSquaresInputStrings[i] = fieldSquaresInputStrings[i].replaceAll("\\s+", "");
             char[] currentRow = fieldSquaresInputStrings[i].toCharArray();
             for (int j = 0; j < noOfColumns; j++) squares[i][j] = new Square(currentRow[j]);
+        }
+    }
+
+    void displaySquares(){
+        for (Square[] square : squares) {
+            for (Square aSquare : square) System.out.print(aSquare);
+            System.out.println();
         }
     }
 

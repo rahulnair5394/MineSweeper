@@ -3,8 +3,6 @@ package com.bitwise.kata;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.util.List;
-
 
 public class MineSweeperTest {
 
@@ -14,6 +12,26 @@ public class MineSweeperTest {
         MineSweeper mineSweeper = new MineSweeper();
         //when
         mineSweeper.addMineField(" 5  5 ");
+        //then
+
+    }
+
+    @Test(expected =  MineSweeper.FieldLimitException.class)
+    public void itShouldAcceptUserInput_checkLessThanHundred() {
+        //given
+        MineSweeper mineSweeper = new MineSweeper();
+        //when
+        mineSweeper.addMineField("100  100 ");
+        //then
+
+    }
+
+    @Test
+    public void itShouldAcceptUserInput_checkUpperLimit() {
+        //given
+        MineSweeper mineSweeper = new MineSweeper();
+        //when
+        mineSweeper.addMineField("99  99 ");
         //then
 
     }
@@ -49,48 +67,7 @@ public class MineSweeperTest {
         Assert.assertFalse(mineSweeper.isMineFieldEmpty());
     }
 
-    /*@Test
-    public void itShouldCreateAndInitializeAField(){
-        //given
-        MineSweeper mineSweeper = new MineSweeper();
-        //when
-        mineSweeper.addField("5  5");
-        if(mineSweeper.hasField(0)) {
-            Field field = mineSweeper.getField(0);
-            int noOFRows=field.getNoOfRows;
-            int noOfColumns=field.getNoOfColumns;
-            Square[][] squares= new Square[noOFRows][noOfColumns];
-            field.setSquares(squares);
 
-
-        }
-        //then
-        Assert.assertFalse(mineSweeper.hasField(0));
-    }
-
-    @Test
-    public void itShouldCreateAndDisplayAField(){
-        //given
-        MineSweeper mineSweeper = new MineSweeper();
-        //when
-        mineSweeper.addField("5  5");
-        Field field = field = mineSweeper.getField(0);
-          field.setSquares("*....", 0);
-            field.setSquares("*...*", 1);
-            field.setSquares("..*..", 2);
-            field.setSquares("*...*", 3);
-            field.setSquares("*.*..", 4);
-
-        field.getSquares(0);
-        field.getSquares(1);
-        field.getSquares(2);
-        field.getSquares(3);
-        field.getSquares(4);
-
-        //then
-        Assert.assertFalse(mineSweeper.hasField(0));
-    }
-*/
     @Test
     public void itShouldCreateAndInitializeAField() {
         //given
@@ -118,9 +95,8 @@ public class MineSweeperTest {
             field.setSquares(squareInput);
             Square[][] squares = field.getSquares();
 
-            for (int i = 0; i < squares.length; i++) {
-                for (int j = 0; j < squares[i].length; j++)
-                    System.out.print(squares[i][j]);
+            for (Square[] square : squares) {
+                for (Square aSquare : square) System.out.print(aSquare);
                 System.out.println();
             }
         }
@@ -154,7 +130,7 @@ public class MineSweeperTest {
         //given
         MineSweeper mineSweeper = new MineSweeper();
         //when
-        mineSweeper.addMineField("5  4 ");
+        mineSweeper.addMineField("5  4 ");  /////////////////////////
         if (mineSweeper.hasMineField(0)) {
             Field field = mineSweeper.getMineField(0);
             String squareInput[] = {"*...", "..*.", ".*..", "...*", "...."};
@@ -175,32 +151,76 @@ public class MineSweeperTest {
     }
 
     @Test
-    public void itShouldCreateHintField() {
+    public void itShouldCreateAndDisplayHintField() {
         //given
         MineSweeper mineSweeper = new MineSweeper();
 
         //when
-        mineSweeper.addMineField("5  4 ");
-        Field mineField=null;
+        mineSweeper.addMineField("10  10 ");
+        Field mineField = null;
         if (mineSweeper.hasMineField(0)) {
             mineField = mineSweeper.getMineField(0);
-            String squareInput[] = {"*...", "..*.", ".*..", "...*", "...."};
+            String squareInput[] = {"*..*..*...", "*.*..*.*..", ".*.*....*.", "*..*...**.", "..*....*..",
+                    "*..*..*...", "*.*..*.*..", ".*.*....**", "*..*...***", "..*....*.*"};
             mineField.setSquares(squareInput);
         }
 
         mineSweeper.addHintField(mineField);
-        Square[][] squares= mineSweeper.getHintField(0).getSquares();
+        Square[][] squares = mineSweeper.getHintField(0).getSquares();
 
-        for (int i = 0; i < squares.length; i++) {
-            for (int j = 0; j < squares[i].length; j++)
-                System.out.print(squares[i][j]);
+        for (Square[] square : squares) {
+            for (Square aSquare : square) System.out.print(aSquare);
             System.out.println();
         }
 
         //then
         Assert.assertTrue(mineSweeper.hasMineField(0));
+        Assert.assertFalse(mineSweeper.isHintFieldEmpty());
         Assert.assertTrue(mineSweeper.hasHintField(0));
     }
+
+
+    @Test
+    public void itShouldCreateAndDisplayHintField_multiple() {
+        //given
+        MineSweeper mineSweeper = new MineSweeper();
+
+        //when
+        mineSweeper.addMineField("10  10 ");
+        int fieldNo=0;
+        Field mineField = null;
+        if (mineSweeper.hasMineField(fieldNo)) {
+            mineField = mineSweeper.getMineField(fieldNo);
+            String squareInput[] = {"*..*..*...", "*.*..*.*..", ".*.*....*.", "*..*...**.", "..*....*..",
+                    "*..*..*...", "*.*..*.*..", ".*.*....**", "*..*...***", "..*....*.*"};
+            mineField.setSquares(squareInput);
+        }
+
+        mineSweeper.addHintField(mineField);
+        System.out.println("Field #"+(fieldNo+1));
+        mineSweeper.getHintField(fieldNo).displaySquares();
+        System.out.println();
+
+        mineSweeper.addMineField("5  5 ");
+        fieldNo++;
+        Field mineField1 = null;
+        if (mineSweeper.hasMineField(fieldNo)) {
+            mineField1 = mineSweeper.getMineField(fieldNo);
+            String squareInput[] = {"*....", "..*.*", ".*..*", "...*.", "....."};
+            mineField1.setSquares(squareInput);
+        }
+
+        mineSweeper.addHintField(mineField1);
+        System.out.println("Field #"+(fieldNo+1));
+        mineSweeper.getHintField(fieldNo).displaySquares();
+
+        //then
+        Assert.assertTrue(mineSweeper.hasMineField(0));
+        Assert.assertFalse(mineSweeper.isHintFieldEmpty());
+        Assert.assertTrue(mineSweeper.hasHintField(0));
+        Assert.assertTrue(mineSweeper.hasHintField(1));
+    }
+
 
 
 
