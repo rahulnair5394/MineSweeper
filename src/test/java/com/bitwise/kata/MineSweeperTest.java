@@ -3,6 +3,8 @@ package com.bitwise.kata;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.util.List;
+
 
 public class MineSweeperTest {
 
@@ -173,7 +175,7 @@ public class MineSweeperTest {
     }
 
     @Test
-    public void itShouldAddHintField() {
+    public void itShouldCreateHintField() {
         //given
         MineSweeper mineSweeper = new MineSweeper();
 
@@ -185,7 +187,15 @@ public class MineSweeperTest {
             String squareInput[] = {"*...", "..*.", ".*..", "...*", "...."};
             mineField.setSquares(squareInput);
         }
+
         mineSweeper.addHintField(mineField);
+        Square[][] squares= mineSweeper.getHintField(0).getSquares();
+
+        for (int i = 0; i < squares.length; i++) {
+            for (int j = 0; j < squares[i].length; j++)
+                System.out.print(squares[i][j]);
+            System.out.println();
+        }
 
         //then
         Assert.assertTrue(mineSweeper.hasMineField(0));
