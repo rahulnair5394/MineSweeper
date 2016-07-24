@@ -10,6 +10,10 @@ public class Square {
         this.squareType = inputSquareType;
     }
 
+    public char getSquareType() {
+        return squareType;
+    }
+
     @Override
     public String toString() {
         return String.valueOf(squareType);

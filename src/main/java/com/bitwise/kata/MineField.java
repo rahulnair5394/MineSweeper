@@ -11,8 +11,6 @@ public class MineField extends Field {
 
     public MineField(int noOfRows, int noOfColumns) {
         super(noOfRows,noOfColumns);
-
-
     }
 
     @Override

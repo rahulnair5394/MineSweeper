@@ -12,22 +12,61 @@ public class HintFieldCreator {
     String[] tempArray;
 
     public Field makeHintField(Field mineField) {
-        tempSquare= new Square[mineField.getNoOfRows()][mineField.getNoOfColumns()];
-        hintField=new HintField(mineField.getNoOfRows(),mineField.getNoOfColumns());
-        tempSquare=mineField.getSquares();
-        tempArray=new String[mineField.getNoOfRows()];
-        //processHintSquares();
+        tempSquare = new Square[mineField.getNoOfRows()][mineField.getNoOfColumns()];
+        hintField = new HintField(mineField.getNoOfRows(), mineField.getNoOfColumns());
+        tempSquare = mineField.getSquares();
+        tempArray = new String[mineField.getNoOfRows()];
+        processTempSquare();
+        return convertHintField();
+    }
 
-        for(int i=0;i<hintField.getNoOfRows();i++) {
-            String s = convertedToString(tempSquare[i]);
-            s=s.replaceAll("[.]","0");
-            tempArray[i]=s;
+    private void processTempSquare() {
+        for (int i = 0; i < tempSquare.length; i++) {
+            for (int j = 0; j < tempSquare[1].length; j++)
+                tempSquare[i][j] = new Square(getChar(i, j));
         }
-        return hintField;
 
     }
 
-    private String convertedToString(Square[] a){  //copied and modified from Arrays.toString();
+    private char getChar(int i, int j) {
+        if (tempSquare[i][j].getSquareType() == '*')
+            return '*';
+        else return calculateAffinity(i, j);
+    }
+
+    private char calculateAffinity(int i, int j) {
+        int count = 48;
+        if (tempSquare[i][j].getSquareType() == '.') {
+            for (int k = i - 1; k < i + 1; k++) {
+                for (int l = j - 1; l < j + 1; l++) {
+                    if (isValid(k, l))
+                        if (tempSquare[k][l].getSquareType() == '*')
+                            count++;
+                }
+            }
+        }
+        return (char) count;
+
+    }
+
+    private boolean isValid(int k, int l) {
+        if(k>0&&k<tempSquare.length&&l>0&&l<tempSquare[k].length)
+            return true;
+        return false;
+    }
+
+
+    private Field convertHintField() {
+        for (int i = 0; i < hintField.getNoOfRows(); i++) {
+            String s = convertToString(tempSquare[i]);
+            //s=s.replaceAll("[.]","1");
+            tempArray[i] = s;
+        }
+        hintField.setSquares(tempArray);
+        return hintField;
+    }
+
+    private String convertToString(Square[] a) {  //copied and modified from Arrays.toString();
 
         if (a == null)
             throw new UnexpectedNullStringFound();
