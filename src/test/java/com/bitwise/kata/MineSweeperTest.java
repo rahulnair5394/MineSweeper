@@ -115,8 +115,10 @@ public class MineSweeperTest {
             String squareInput[] = {"*....", "..*.*", ".*..*", "...*.", "....."};
             field.setSquares(squareInput);
             Square[][] squares = field.getSquares();
-            for (Square[] square : squares) {
-                for (Square aSquare : square) System.out.print(aSquare);
+
+            for (int i = 0; i < squares.length; i++) {
+                for (int j = 0; j < squares[i].length; j++)
+                    System.out.print(squares[i][j]);
                 System.out.println();
             }
         }
@@ -170,6 +172,25 @@ public class MineSweeperTest {
         Assert.assertTrue(mineSweeper.hasMineField(1));
     }
 
+    @Test
+    public void itShouldAddHintField() {
+        //given
+        MineSweeper mineSweeper = new MineSweeper();
+
+        //when
+        mineSweeper.addMineField("5  4 ");
+        Field mineField=null;
+        if (mineSweeper.hasMineField(0)) {
+            mineField = mineSweeper.getMineField(0);
+            String squareInput[] = {"*...", "..*.", ".*..", "...*", "...."};
+            mineField.setSquares(squareInput);
+        }
+        mineSweeper.addHintField(mineField);
+
+        //then
+        Assert.assertTrue(mineSweeper.hasMineField(0));
+        Assert.assertTrue(mineSweeper.hasHintField(0));
+    }
 
 
 
