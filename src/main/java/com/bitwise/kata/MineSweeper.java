@@ -44,8 +44,9 @@ class MineSweeper {
 
 
     private void validatePattern(String initiator) {
-        if (!initiator.matches("[ ]*[0-9]+[ ]+[0-9]+[ ]*"))
+        if(!initiator.matches("[ ]*[0-9]+[ ]+[0-9]+[ ]*"))
             throw new InputFormatViolationException();
+
 
     }
 

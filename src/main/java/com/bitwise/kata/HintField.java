@@ -18,6 +18,7 @@ class HintField extends Field {
                     aFieldSquaresInputString.length() != this.getNoOfColumns() ||
                     !aFieldSquaresInputString.matches("[0-8*\\s]+"))
                 throw new InputValidationFailedException();
+
         }
     }
 
