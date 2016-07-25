@@ -13,11 +13,11 @@ class MineSweeper {
     private final List<Field> hintFields = new ArrayList<>();
     private final HintFieldCreator fieldCreator = new HintFieldCreator();
 
-    void addMineField(String initiator) {
+    boolean addMineField(String initiator) {
         validatePattern(initiator);
         String[] rowCol = initiator.trim().split("[\\s]+");
         checkRowCol(rowCol);
-        mineFields.add(new MineField(Integer.parseInt(rowCol[0]), Integer.parseInt(rowCol[1])));
+        return mineFields.add(new MineField(Integer.parseInt(rowCol[0]), Integer.parseInt(rowCol[1])));
     }
 
     private void checkRowCol(String[] rowCol) {
@@ -30,11 +30,12 @@ class MineSweeper {
         return mineFields.get(i);
     }
 
-    void addHintField(Field mineField) {
+    boolean addHintField(Field mineField) {
         if (mineField != null) {
             Field hintField = fieldCreator.makeHintField(mineField);
-            hintFields.add(hintField);
+            return hintFields.add(hintField);
         }
+        return false;
     }
 
     Field getHintField(int i) {
