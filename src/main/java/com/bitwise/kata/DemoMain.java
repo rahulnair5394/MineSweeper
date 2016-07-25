@@ -51,6 +51,7 @@ class DemoMain {
             mineSweeper.getHintField(hindFieldIndex).displaySquares();
             System.out.println();
         }
+        System.exit(1);
 
     }
 }
