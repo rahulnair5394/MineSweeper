@@ -19,64 +19,64 @@ class HintFieldCreator {
     }
 
     private void processTempSquare() {
-        for (int i = 0; i < tempSquare.length; i++) {
-            for (int j = 0; j < tempSquare[1].length; j++)
-                tempSquare[i][j] = new Square(getChar(i, j));
+        for (int rowIndex = 0; rowIndex < tempSquare.length; rowIndex++) {
+            for (int columnIndex = 0; columnIndex < tempSquare[rowIndex].length; columnIndex++)
+                tempSquare[rowIndex][columnIndex] = new Square(getChar(rowIndex, columnIndex));
         }
 
     }
 
-    private char getChar(int i, int j) {
-        if (tempSquare[i][j].getSquareType() == '*')
+    private char getChar(int rowIndex, int columnIndex) {
+        if (tempSquare[rowIndex][columnIndex].getSquareType() == '*')
             return '*';
-        else return calculateAffinity(i, j);
+        else return calculateAffinity(rowIndex, columnIndex);
     }
 
-    private char calculateAffinity(int i, int j) {
-        int count = 48;
-        if (tempSquare[i][j].getSquareType() == '.') {
-            count = findNeighbours(i, j, count);
+    private char calculateAffinity(int rowIndex, int columnIndex) {
+        int affinity = 48;
+        if (tempSquare[rowIndex][columnIndex].getSquareType() == '.') {
+            affinity = findNeighbours(rowIndex, columnIndex, affinity);
         }
-        return (char) count;
+        return (char) affinity;
 
     }
 
-    private int findNeighbours(int i, int j, int count) {
-        for (int k = i - 1; k <= i + 1; k++)
-            for (int l = j - 1; l <= j + 1; l++) count = checkNeighbour(count, k, l);
-        return count;
+    private int findNeighbours(int rowIndex, int columnIndex, int affinity) {
+        for (int neighbourRowIndex = rowIndex - 1; neighbourRowIndex <= rowIndex + 1; neighbourRowIndex++)
+            for (int neighbourColumnIndex = columnIndex - 1; neighbourColumnIndex <= columnIndex + 1; neighbourColumnIndex++) affinity = checkNeighbour(affinity, neighbourRowIndex, neighbourColumnIndex);
+        return affinity;
     }
 
-    private int checkNeighbour(int count, int k, int l) {
-        if (isValid(k, l))
-            if (tempSquare[k][l].getSquareType() == '*')
-                count++;
-        return count;
+    private int checkNeighbour(int affinity, int neighbourRowIndex, int neighbourColumnIndex) {
+        if (isValid(neighbourRowIndex, neighbourColumnIndex))
+            if (tempSquare[neighbourRowIndex][neighbourColumnIndex].getSquareType() == '*')
+                affinity++;
+        return affinity;
     }
 
-    private boolean isValid(int k, int l) {
-        return k >= 0 && k < tempSquare.length && l >= 0 && l < tempSquare[k].length;
+    private boolean isValid(int neighbourRowIndex, int neighbourColumnIndex) {
+        return neighbourRowIndex >= 0 && neighbourRowIndex < tempSquare.length && neighbourColumnIndex >= 0 && neighbourColumnIndex < tempSquare[neighbourRowIndex].length;
     }
 
 
     private Field convertHintField() {
-        for (int i = 0; i < hintField.getNoOfRows(); i++) {
-            String s = convertToString(tempSquare[i]);
+        for (int rowIndex = 0; rowIndex < hintField.getNoOfRows(); rowIndex++) {
+            String rowStringSet = convertToString(tempSquare[rowIndex]);
             //s=s.replaceAll("[.]","1"); //for testing
-            tempArray[i] = s;
+            tempArray[rowIndex] = rowStringSet;
         }
         hintField.setSquares(tempArray);
         return hintField;
     }
 
-    private String convertToString(Square[] a) {  //copied and modified Arrays.toString();
-        if (a == null) throw new UnexpectedNullStringFound();
-        int iMax = a.length - 1;
+    private String convertToString(Square[] squareArray) {  //copied and modified Arrays.toString();
+        if (squareArray == null) throw new UnexpectedNullStringFound();
+        int iMax = squareArray.length - 1;
         if (iMax == -1)
             return "";
         StringBuilder b = new StringBuilder();
         for (int i = 0; ; i++) {
-            b.append(String.valueOf(a[i]));
+            b.append(String.valueOf(squareArray[i]));
             if (i == iMax)
                 return b.toString();
         }

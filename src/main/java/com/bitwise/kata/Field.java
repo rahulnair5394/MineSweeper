@@ -19,10 +19,11 @@ abstract class Field {
 
     void setSquares(String[] fieldSquaresInputStrings){
         this.validateColumnInputSquares(fieldSquaresInputStrings);
-        for (int i = 0; i < noOfRows; i++) {
-            fieldSquaresInputStrings[i] = fieldSquaresInputStrings[i].replaceAll("\\s+", "");
-            char[] currentRow = fieldSquaresInputStrings[i].toCharArray();
-            for (int j = 0; j < noOfColumns; j++) squares[i][j] = new Square(currentRow[j]);
+        for (int fieldSquaresInputStringsIndex = 0; fieldSquaresInputStringsIndex < noOfRows; fieldSquaresInputStringsIndex++) {
+            fieldSquaresInputStrings[fieldSquaresInputStringsIndex] = fieldSquaresInputStrings[fieldSquaresInputStringsIndex].replaceAll("\\s+", "");
+            char[] currentRow = fieldSquaresInputStrings[fieldSquaresInputStringsIndex].toCharArray();
+            for (int columnIndex = 0; columnIndex < noOfColumns; columnIndex++)
+                squares[fieldSquaresInputStringsIndex][columnIndex] = new Square(currentRow[columnIndex]);
         }
     }
 

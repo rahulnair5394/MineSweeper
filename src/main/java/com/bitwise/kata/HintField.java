@@ -13,9 +13,7 @@ class HintField extends Field {
 
     @Override
     void validateColumnInputSquares(String[] fieldSquaresInputString) {
-
         for (String aFieldSquaresInputString : fieldSquaresInputString) {
-
             if (fieldSquaresInputString.length != this.getNoOfRows() ||
                     aFieldSquaresInputString.length() != this.getNoOfColumns() ||
                     !aFieldSquaresInputString.matches("[0-8*\\s]+"))

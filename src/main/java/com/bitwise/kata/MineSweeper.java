@@ -16,18 +16,18 @@ class MineSweeper {
     boolean addMineField(String initiator) {
         validatePattern(initiator);
         String[] rowCol = initiator.trim().split("[\\s]+");
-        checkRowCol(rowCol);
-        return mineFields.add(new MineField(Integer.parseInt(rowCol[0]), Integer.parseInt(rowCol[1])));
+        if(checkRowCol(rowCol))
+        mineFields.add(new MineField(Integer.parseInt(rowCol[0]), Integer.parseInt(rowCol[1])));
+        return checkRowCol(rowCol);
     }
 
-    private void checkRowCol(String[] rowCol) {
-        if(Integer.parseInt(rowCol[0])>99||Integer.parseInt(rowCol[1])>99)
-            throw new FieldLimitException();
+    private boolean checkRowCol(String[] rowCol) {
+        return !(Integer.parseInt(rowCol[0]) > 100 || Integer.parseInt(rowCol[0]) < 1 || Integer.parseInt(rowCol[1]) > 100 || Integer.parseInt(rowCol[1]) < 1);
     }
 
 
-    Field getMineField(int i) {
-        return mineFields.get(i);
+    Field getMineField(int index) {
+        return mineFields.get(index);
     }
 
     boolean addHintField(Field mineField) {
@@ -38,8 +38,8 @@ class MineSweeper {
         return false;
     }
 
-    Field getHintField(int i) {
-        return hintFields.get(i);
+    Field getHintField(int index) {
+        return hintFields.get(index);
     }
 
 
@@ -69,6 +69,5 @@ class MineSweeper {
     }
 
 
-    class FieldLimitException extends RuntimeException {
-    }
+
 }
