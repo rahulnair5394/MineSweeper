@@ -43,7 +43,6 @@ public class MineSweeperTest {
         //when
         mineSweeper.addMineField("a 5");
         //then
-
     }
 
     @Test(expected = MineSweeper.InputFormatViolationException.class)
@@ -53,8 +52,6 @@ public class MineSweeperTest {
         //when
         mineSweeper.addMineField(" 5 5 5 ");
         //then
-
-
     }
 
     @Test
@@ -167,7 +164,6 @@ public class MineSweeperTest {
 
         if (mineSweeper.addHintField(mineField)) {
             Square[][] squares = mineSweeper.getHintField(0).getSquares();
-
             for (Square[] square : squares) {
                 for (Square aSquare : square) System.out.print(aSquare);
                 System.out.println();
@@ -223,6 +219,4 @@ public class MineSweeperTest {
         Assert.assertTrue(mineSweeper.hasHintField(0));
         Assert.assertTrue(mineSweeper.hasHintField(1));
     }
-
-
 }
