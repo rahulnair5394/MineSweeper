@@ -16,7 +16,7 @@ public class MineSweeperTest {
 
     }
 
-    @Test(expected =  MineSweeper.FieldLimitException.class)
+    @Test(expected = MineSweeper.FieldLimitException.class)
     public void itShouldAcceptUserInput_checkLessThanHundred() {
         //given
         MineSweeper mineSweeper = new MineSweeper();
@@ -187,7 +187,7 @@ public class MineSweeperTest {
 
         //when
         mineSweeper.addMineField("10  10 ");
-        int fieldNo=0;
+        int fieldNo = 0;
         Field mineField = null;
         if (mineSweeper.hasMineField(fieldNo)) {
             mineField = mineSweeper.getMineField(fieldNo);
@@ -197,21 +197,22 @@ public class MineSweeperTest {
         }
 
         mineSweeper.addHintField(mineField);
-        System.out.println("Field #"+(fieldNo+1));
+        System.out.println("Field #" + (fieldNo + 1));
         mineSweeper.getHintField(fieldNo).displaySquares();
         System.out.println();
 
         mineSweeper.addMineField("5  5 ");
-        fieldNo++;
+
         Field mineField1 = null;
         if (mineSweeper.hasMineField(fieldNo)) {
             mineField1 = mineSweeper.getMineField(fieldNo);
+
             String squareInput[] = {"*....", "..*.*", ".*..*", "...*.", "....."};
             mineField1.setSquares(squareInput);
         }
 
         mineSweeper.addHintField(mineField1);
-        System.out.println("Field #"+(fieldNo+1));
+        System.out.println("Field #" + (fieldNo + 1));
         mineSweeper.getHintField(fieldNo).displaySquares();
 
         //then
@@ -222,6 +223,45 @@ public class MineSweeperTest {
     }
 
 
+    @Test
+    public void howMainShouldBeWritten() {
+        //given
+        MineSweeper mineSweeper = new MineSweeper();
+
+        //when
+
+        // this part can be in while loop
+        //from here
+        //while(true){  //for input
+        int fieldNo = -1;
+
+        if (mineSweeper.addMineField("10  10 "))
+            fieldNo++;
+        //else break;  //can be used to break while
+
+        Field mineField = null;
+        if (mineSweeper.hasMineField(fieldNo)) {
+            mineField = mineSweeper.getMineField(fieldNo);
+            //scanner can be used to take input here
+            String squareInput[] = {"*..*..*...", "*.*..*.*..", ".*.*....*.", "*..*...**.", "..*....*..",
+                    "*..*..*...", "*.*..*.*..", ".*.*....**", "*..*...***", "..*....*.*"};
+            mineField.setSquares(squareInput);
+        }
+        mineSweeper.addHintField(mineField);
+        //}
+        //to here
+
+
+        for (int hindFieldIndex = 0; hindFieldIndex <= fieldNo; hindFieldIndex++) {
+            System.out.println("Field #" + (hindFieldIndex + 1));
+            mineSweeper.getHintField(hindFieldIndex).displaySquares();
+        }
+
+        //then
+        Assert.assertTrue(mineSweeper.hasMineField(0));
+        Assert.assertFalse(mineSweeper.isHintFieldEmpty());
+        Assert.assertTrue(mineSweeper.hasHintField(0));
+    }
 
 
 }
