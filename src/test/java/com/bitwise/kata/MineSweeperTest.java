@@ -13,7 +13,7 @@ public class MineSweeperTest {
         //when
         mineSweeper.addMineField(" 5  5 ");
         //then
-
+        Assert.assertFalse(mineSweeper.isMineFieldEmpty());
     }
 
     @Test
@@ -178,7 +178,7 @@ public class MineSweeperTest {
 
 
     @Test
-    public void itShouldCreateAndDisplayHintField_multiple() {
+    public void itShouldCreateAndDisplayHintField_multiple() {  //lengthy method! can be changed in main using while.
 
         //given
         MineSweeper mineSweeper = new MineSweeper();
@@ -196,7 +196,7 @@ public class MineSweeperTest {
 
         mineSweeper.addHintField(mineField);
         System.out.println("Field #" + (fieldNo + 1));
-        mineSweeper.getHintField(fieldNo).displaySquares();
+        mineSweeper.getHintField(fieldNo).displaySquares();   //added property in field for Displaying Squares.
         System.out.println();
         fieldNo++;
         mineSweeper.addMineField("5  5 ");
@@ -219,4 +219,26 @@ public class MineSweeperTest {
         Assert.assertTrue(mineSweeper.hasHintField(0));
         Assert.assertTrue(mineSweeper.hasHintField(1));
     }
+
+    @Test
+    public void itShouldAcceptSquareValuesWithSpacesAndProcessRemovingSpaces(){
+        //given
+        MineSweeper mineSweeper = new MineSweeper();
+        //when
+        mineSweeper.addMineField("5  5");
+        if (mineSweeper.hasMineField(0)) {
+            Field field = mineSweeper.getMineField(0);
+            String squareInput[] = {"*..  ..  ", "..  *.*", ".*  ..*", ".  ..*.", "..  ..."};
+            field.setSquares(squareInput);
+            Square[][] squares = field.getSquares();
+
+            for (Square[] square : squares) {
+                for (Square aSquare : square) System.out.print(aSquare);
+                System.out.println();
+            }
+        }
+        //then
+        Assert.assertTrue(mineSweeper.hasMineField(0));
+    }
 }
+

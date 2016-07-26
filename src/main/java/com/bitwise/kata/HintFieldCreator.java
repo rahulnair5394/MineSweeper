@@ -3,8 +3,8 @@ package com.bitwise.kata;
 /**
  * Created by rahul.nair@bitwiseglobal.com .
  */
-class HintFieldCreator {
-
+class HintFieldCreator//can be replaced by builder pattern
+{
     private Field hintField;
     private Square[][] tempSquare;
     private String[] tempArray;

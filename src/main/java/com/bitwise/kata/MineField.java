@@ -18,7 +18,7 @@ class MineField extends Field {
 
             if (fieldSquaresInputString.length != this.getNoOfRows() ||
                     fieldSquaresInputString[rowIndex].length() != this.getNoOfColumns() ||
-                    !fieldSquaresInputString[rowIndex].matches("[*.\\s]+"))
+                    !fieldSquaresInputString[rowIndex].matches("[*.]+"))
                 throw new InputValidationFailedException();
         }
     }

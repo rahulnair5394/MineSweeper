@@ -16,8 +16,8 @@ abstract class Field {
     }
 
 
-
-    void setSquares(String[] fieldSquaresInputStrings){
+    void setSquares(String[] fieldSquaresInputStrings) {
+        fieldSquaresInputStrings=processStringInput(fieldSquaresInputStrings);
         this.validateColumnInputSquares(fieldSquaresInputStrings);
         for (int fieldSquaresInputStringsIndex = 0; fieldSquaresInputStringsIndex < noOfRows; fieldSquaresInputStringsIndex++) {
             fieldSquaresInputStrings[fieldSquaresInputStringsIndex] = fieldSquaresInputStrings[fieldSquaresInputStringsIndex].replaceAll("\\s+", "");
@@ -27,7 +27,13 @@ abstract class Field {
         }
     }
 
-    void displaySquares(){
+    private String[] processStringInput(String[] fieldSquaresInputStrings) {
+        for(int index = 0; index < fieldSquaresInputStrings.length; index++)
+            fieldSquaresInputStrings[index]=fieldSquaresInputStrings[index].replaceAll("[ ]+","");
+        return fieldSquaresInputStrings;
+    }
+
+    void displaySquares() {
         for (Square[] square : squares) {
             for (Square aSquare : square) System.out.print(aSquare);
             System.out.println();
@@ -40,9 +46,11 @@ abstract class Field {
     Square[][] getSquares() {
         return this.squares;
     }
+
     int getNoOfRows() {
         return this.noOfRows;
     }
+
     int getNoOfColumns() {
         return this.noOfColumns;
     }
